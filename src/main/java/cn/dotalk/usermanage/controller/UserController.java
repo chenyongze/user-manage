@@ -3,6 +3,7 @@ package cn.dotalk.usermanage.controller;
 import cn.dotalk.usermanage.entity.UserSimple;
 import cn.dotalk.usermanage.mapper.UserSimpleDao;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +20,11 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/get/{id}",method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
-    public String get(@PathVariable("id") int id){
+    public Object get(@PathVariable("id") int id){
         UserSimple userSimple = userSimpleDao.selectByPrimaryKey(id);
         log.info(userSimple.getPassword());
-        return userSimple.getUsername();
+        return JSON.toJSON(userSimple);
     }
-
-
 
     @ResponseBody
     @RequestMapping(value = "/body/data", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
