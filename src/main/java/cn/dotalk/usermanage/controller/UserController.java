@@ -3,14 +3,15 @@ package cn.dotalk.usermanage.controller;
 import cn.dotalk.usermanage.entity.UserSimple;
 import cn.dotalk.usermanage.mapper.UserSimpleDao;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 
 import javax.annotation.Resource;
 
+@Slf4j
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Resource
@@ -20,7 +21,7 @@ public class UserController {
     @RequestMapping(value = "/get/{id}",method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
     public String get(@PathVariable("id") int id){
         UserSimple userSimple = userSimpleDao.selectByPrimaryKey(id);
-        System.out.println(userSimple.toString());
+        log.info(userSimple.getPassword());
         return userSimple.getUsername();
     }
 
@@ -33,9 +34,7 @@ public class UserController {
         return "writeByBody";
     }
 
-
-
-
+    // 添加数据
     @RequestMapping(value = "/add")
     public int add(){
         UserSimple user = new UserSimple();
@@ -45,7 +44,7 @@ public class UserController {
         return userSimpleDao.insert(user);
     }
 
-//    删除
+    // 删除
     @RequestMapping("/del/{id}")
     public int del(@PathVariable("id") int id){
         return userSimpleDao.deleteByPrimaryKey(id);
