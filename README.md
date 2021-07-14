@@ -3,5 +3,5 @@
 ### 开发进度
 
 - [x] mybatis 
-- [ ] utils 封装 json  返回数据基类
+- [x] utils 封装 json  返回数据基类
 - [ ] utils redis 基本操作封装基类
